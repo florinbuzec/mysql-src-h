@@ -3,7 +3,6 @@ DOCKER_IMAGE_NAME:=florinbuzec/mysql-src-h
 DOCKER_IMAGE_TAG:=mariadb-10.2.44
 DOCKER_IMAGE_FULL:=${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}
 export DOCKER_IMAGE_FULL
-# export $(grep -v '^#' .env | xargs)
 
 .PHONY: help
 help: ## View all make targets
