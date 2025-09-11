@@ -1,12 +1,12 @@
 ## MySQL/MariaDb source headers
 
-- Registry: [DockerHub](https://hub.docker.com/r/florinbuzec/mysql-src-h/tags/)
+- Source code: [GitHub](https://github.com/florinbuzec/mysql-src-h)
 
 > This Docker image contains files that are intended to be used as included headers in CGO UDF development.
 
 > They are stored in ``/usr/include/mysql/`` folder
 
-> Please select the appropiate branch in order to change the software and version of the *Dockerfile*.
+> Please select the appropiate tag in order to change the software and version of the *Dockerfile*.
 
 ```go
 package main
