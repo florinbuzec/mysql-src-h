@@ -1,7 +1,7 @@
 FROM debian:buster as mariadb-src
 
 ARG DEBIAN_FRONTEND=noninteractive
-ARG MARIADB_VERSION=10.2.44
+ARG MARIADB_VERSION=10.6.19
 
 RUN echo "deb [trusted=yes] http://archive.debian.org/debian buster main\n\
 deb [trusted=yes] http://archive.debian.org/debian-security buster/updates main" > /etc/apt/sources.list
@@ -36,15 +36,15 @@ COPY --from=mariadb-src --chown=1000:1000 /usr/include/mysql /usr/include/mysql
 
 LABEL org.label-schema.schema-version="1.0" \
       org.label-schema.license="proprietary" \
-      org.label-schema.name="mariadb10.2.44_src_h" \
-      org.label-schema.description="MariaDb v10.2.44 source headers" \
+      org.label-schema.name="mariadb10.6.19_src_h" \
+      org.label-schema.description="MariaDb v10.6.19 source headers" \
       maintainer="Florin Buzec <florin.buzec@gmail.com>" \
       org.label-schema.url="https://github.com/florinbuzec/mysql-src-h" \
       org.label-schema.vcs-url="https://github.com/florinbuzec/mysql-src-h" \
       org.label-schema.cmd="make build" \
-      org.opencontainers.image.version="mariadb-10.2.44" \
+      org.opencontainers.image.version="mariadb-10.6.19" \
       org.opencontainers.image.vendor="florinbuzec" \
       org.opencontainers.image.title="Header files for MySQL/MariaDb" \
       org.opencontainers.image.description="Header files for including in UDF CGo libraries for MySQL/MariaDb" \
       org.opencontainers.image.source="https://github.com/florinbuzec/mysql-src-h" \
-      org.opencontainers.image.created="2025-09-11"
+      org.opencontainers.image.created="2025-09-17"

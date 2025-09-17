@@ -25,7 +25,7 @@ import "C"
 > Actual usage as Docker base:
 ```docker
 // ...
-COPY --from=florinbuzec/mysql-src-h:mariadb-10.2.44 --chown=mysql:mysql /usr/include/mysql /usr/include/mysql
+COPY --from=florinbuzec/mysql-src-h:mariadb-10.6.19 --chown=mysql:mysql /usr/include/mysql /usr/include/mysql
 
 WORKDIR /app
 
