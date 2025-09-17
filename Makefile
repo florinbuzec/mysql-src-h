@@ -1,8 +1,7 @@
-MARIADB_VERSION:=10.6.19
 DOCKER_IMAGE_NAME:=florinbuzec/mysql-src-h
-DOCKER_IMAGE_TAG:=mariadb-10.6.19
+DOCKER_IMAGE_TAG:=mysql-8.0
 DOCKER_IMAGE_FULL:=${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}
-DOCKER_IMAGE_FULL2:=${DOCKER_IMAGE_NAME}:mariadb-11.8.1
+DOCKER_IMAGE_FULL2:=${DOCKER_IMAGE_NAME}:mysql-8.0.33
 export DOCKER_IMAGE_FULL
 export DOCKER_IMAGE_FULL2
 
@@ -21,7 +20,6 @@ check:
 .PHONY: build
 build: check ## Build the image
 	docker build . \
-		--build-arg MARIADB_VERSION=${MARIADB_VERSION} \
 		-t ${DOCKER_IMAGE_FULL} \
 		-t ${DOCKER_IMAGE_FULL2}
 
