@@ -7,12 +7,18 @@ deb [trusted=yes] http://archive.debian.org/debian-security buster/updates main"
 
 RUN apt-get -y update && \
     apt-get install -y \
-        wget gnupg lsb-release ca-certificates && \
-    wget https://dev.mysql.com/get/mysql-apt-config_0.8.29-1_all.deb && \
-    echo 'mysql-apt-config mysql-apt-config/select-server select mysql-8.0\nmysql-apt-config mysql-apt-config/select-product select Ok\nmysql-apt-config mysql-apt-config/select-tools select Enabled' | dpkg -i mysql-apt-config_0.8.29-1_all.deb && \
-    apt-get update && apt-get install -y \
-        libmysqlclient-dev && \
+        wget gnupg lsb-release ca-certificates multiarch-support && \
     rm -rf /var/lib/apt/lists/*
+
+# these are 404 now
+RUN wget https://ftp.iij.ad.jp/pub/db/mysql/Downloads/MySQL-5.7/libmysqlclient20_5.7.25-1debian8_amd64.deb && \
+    wget https://ftp.iij.ad.jp/pub/db/mysql/Downloads/MySQL-5.7/libmysqlclient20-dbgsym_5.7.25-1debian8_amd64.deb && \
+    wget https://ftp.iij.ad.jp/pub/db/mysql/Downloads/MySQL-5.7/mysql-common_5.7.25-1debian8_amd64.deb && \
+    wget https://ftp.iij.ad.jp/pub/db/mysql/Downloads/MySQL-5.7/libmysqlclient-dev_5.7.25-1debian8_amd64.deb && \
+    dpkg -i mysql-common_5.7.25-1debian8_amd64.deb && \
+    dpkg -i libmysqlclient20_5.7.25-1debian8_amd64.deb && \
+    dpkg -i libmysqlclient20-dbgsym_5.7.25-1debian8_amd64.deb && \
+    dpkg -i libmysqlclient-dev_5.7.25-1debian8_amd64.deb
 
 #
 
@@ -22,15 +28,15 @@ COPY --from=mysql-src --chown=1000:1000 /usr/include/mysql /usr/include/mysql
 
 LABEL org.label-schema.schema-version="1.0" \
       org.label-schema.license="proprietary" \
-      org.label-schema.name="mysql8.0_src_h" \
-      org.label-schema.description="MySQL v8.0 source headers" \
+      org.label-schema.name="mysql5.7_src_h" \
+      org.label-schema.description="MySQL v5.7 source headers" \
       maintainer="Florin Buzec <florin.buzec@gmail.com>" \
       org.label-schema.url="https://github.com/florinbuzec/mysql-src-h" \
       org.label-schema.vcs-url="https://github.com/florinbuzec/mysql-src-h" \
       org.label-schema.cmd="make build" \
-      org.opencontainers.image.version="mysql-8.0" \
+      org.opencontainers.image.version="mysql-5.7" \
       org.opencontainers.image.vendor="florinbuzec" \
       org.opencontainers.image.title="Header files for MySQL/MariaDb" \
       org.opencontainers.image.description="Header files for including in UDF CGo libraries for MySQL/MariaDb" \
       org.opencontainers.image.source="https://github.com/florinbuzec/mysql-src-h" \
-      org.opencontainers.image.created="2025-09-17"
+      org.opencontainers.image.created="2025-09-18"
