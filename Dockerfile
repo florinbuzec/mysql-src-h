@@ -10,11 +10,11 @@ RUN apt-get -y update && \
         wget gnupg lsb-release ca-certificates multiarch-support && \
     rm -rf /var/lib/apt/lists/*
 
-# these are 404 now
-RUN wget https://ftp.iij.ad.jp/pub/db/mysql/Downloads/MySQL-5.7/libmysqlclient20_5.7.25-1debian8_amd64.deb && \
-    wget https://ftp.iij.ad.jp/pub/db/mysql/Downloads/MySQL-5.7/libmysqlclient20-dbgsym_5.7.25-1debian8_amd64.deb && \
-    wget https://ftp.iij.ad.jp/pub/db/mysql/Downloads/MySQL-5.7/mysql-common_5.7.25-1debian8_amd64.deb && \
-    wget https://ftp.iij.ad.jp/pub/db/mysql/Downloads/MySQL-5.7/libmysqlclient-dev_5.7.25-1debian8_amd64.deb && \
+# updated with officials
+RUN wget https://downloads.mysql.com/archives/get/p/23/file/libmysqlclient20_5.7.25-1debian8_amd64.deb && \
+    wget https://downloads.mysql.com/archives/get/p/23/file/libmysqlclient20-dbgsym_5.7.25-1debian8_amd64.deb && \
+    wget https://downloads.mysql.com/archives/get/p/23/file/mysql-common_5.7.25-1debian8_amd64.deb && \
+    wget https://downloads.mysql.com/archives/get/p/23/file/libmysqlclient-dev_5.7.25-1debian8_amd64.deb && \
     dpkg -i mysql-common_5.7.25-1debian8_amd64.deb && \
     dpkg -i libmysqlclient20_5.7.25-1debian8_amd64.deb && \
     dpkg -i libmysqlclient20-dbgsym_5.7.25-1debian8_amd64.deb && \
