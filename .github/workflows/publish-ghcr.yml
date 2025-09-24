@@ -19,7 +19,14 @@ jobs:
     steps:
       - name: Setup variables
         run: |
-          echo "DOCKER_IMAGE_FULL=ghcr.io/$DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG" >> $GITHUB_ENV
+          echo "DOCKER_IMAGE_FULL=$DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG" >> $GITHUB_ENV
+
+      - name: Safety checks
+        run: |
+          if [ -z "$${{ secrets.GHCR_TOKEN }}" ]; then \
+            echo "Please configure the repository secrets with required variables (GHCR_TOKEN)."; \
+            exit 1; \
+          fi; \
 
       - name: Checkout
         uses: actions/checkout@v4
@@ -31,25 +38,7 @@ jobs:
       #   run: |
       #     docker run --rm -i hadolint/hadolint < Dockerfile
 
-      # - name: Build Docker image
-      #   run: |
-      #     docker build . \
-      #       --build-arg MARIADB_VERSION=${{ env.MARIADB_VERSION }} \
-      #       -t ${{ env.DOCKER_IMAGE_FULL }} -f ./Dockerfile .
-
-      # # https://github.com/settings/tokens/new?scopes=write:packages
-      # - name: Registry login
-      #   run: |
-      #     if [ -z "$${{ secrets.GHCR_TOKEN }}" ]; then \
-      #       echo "Please configure the repository secrets with required variables (GHCR_TOKEN,GHCR_USERNAME)."; \
-      #       exit 1; \
-      #     fi; \
-      #     echo {{ secrets.GHCR_TOKEN }} | docker login ghcr.io -u {{ secrets.GHCR_USERNAME }} --password-stdin
-
-      # - name: Publish image
-      #   run: |
-      #     docker push ${{ env.DOCKER_IMAGE_FULL }}
-
+      # https://github.com/settings/tokens/new?scopes=write:packages
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
@@ -69,4 +58,4 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            ${{ env.DOCKER_IMAGE_FULL }}
+            ghcr.io/${{ env.DOCKER_IMAGE_FULL }}
