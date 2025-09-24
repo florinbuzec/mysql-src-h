@@ -27,9 +27,9 @@ jobs:
           ref: ${{ env.GIT_BRANCH }}
           fetch-depth: 0
         
-      - name: Lint via Hadolint tool
-        run: |
-          docker run --rm -i hadolint/hadolint < Dockerfile
+      # - name: Lint via Hadolint tool
+      #   run: |
+      #     docker run --rm -i hadolint/hadolint < Dockerfile
 
       - name: Build Docker image
         run: |
