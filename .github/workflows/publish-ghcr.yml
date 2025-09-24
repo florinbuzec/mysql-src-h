@@ -23,10 +23,10 @@ jobs:
 
       - name: Safety checks
         run: |
-          if [ -z "$${{ secrets.GHCR_TOKEN }}" ]; then \
-            echo "Please configure the repository secrets with required variables (GHCR_TOKEN)."; \
-            exit 1; \
-          fi; \
+          if [ -z "${{ secrets.GHCR_TOKEN }}" ]; then
+            echo "Please configure the repository secrets with required variables (GHCR_TOKEN).";
+            exit 1;
+          fi;
 
       - name: Checkout
         uses: actions/checkout@v4
