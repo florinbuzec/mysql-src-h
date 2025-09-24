@@ -35,7 +35,7 @@ jobs:
         run: |
           docker build . \
             --build-arg MARIADB_VERSION=${{ env.MARIADB_VERSION }} \
-            -t ${DOCKER_IMAGE_FULL} -f ./Dockerfile .
+            -t ${{ env.DOCKER_IMAGE_FULL }} -f ./Dockerfile .
 
       # https://github.com/settings/tokens/new?scopes=write:packages
       - name: Registry login
@@ -48,4 +48,4 @@ jobs:
 
       - name: Publish image
         run: |
-          docker push ${DOCKER_IMAGE_FULL}
+          docker push ${{ env.DOCKER_IMAGE_FULL }}
