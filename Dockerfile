@@ -1,4 +1,4 @@
-FROM debian:buster as mariadb-src
+FROM debian:buster AS mariadb-src
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG MARIADB_VERSION=10.2.44
