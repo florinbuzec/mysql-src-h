@@ -1,4 +1,4 @@
-FROM ubuntu:18.04 as mysql-src
+FROM ubuntu:18.04 AS mysql-src
 
 ARG DEBIAN_FRONTEND=noninteractive
 
