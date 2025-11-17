@@ -49,4 +49,4 @@ LABEL org.label-schema.schema-version="1.0" \
       org.opencontainers.image.source="https://github.com/florinbuzec/mysql-src-h" \
       org.opencontainers.image.url="https://github.com/florinbuzec/mysql-src-h" \
       org.opencontainers.image.version="mariadb-10.2.44" \
-      org.opencontainers.image.created="2025-09-11"
+      org.opencontainers.image.created="2025-11-17"
