@@ -1,17 +1,16 @@
-FROM ubuntu:18.04 AS mysql-src
+# ubuntu 18.04 only has until mysql 8.0.28 that has no included source files
+FROM ubuntu:22.04 AS mysql-src
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-RUN echo "deb [trusted=yes] http://archive.debian.org/debian buster main\n\
-deb [trusted=yes] http://archive.debian.org/debian-security buster/updates main" > /etc/apt/sources.list
-
-RUN apt-get -y update && \
-    apt-get install -y \
-        wget gnupg lsb-release ca-certificates && \
-    wget https://dev.mysql.com/get/mysql-apt-config_0.8.29-1_all.deb && \
-    echo 'mysql-apt-config mysql-apt-config/select-server select mysql-8.0\nmysql-apt-config mysql-apt-config/select-product select Ok\nmysql-apt-config mysql-apt-config/select-tools select Enabled' | dpkg -i mysql-apt-config_0.8.29-1_all.deb && \
-    apt-get update && apt-get install -y \
-        libmysqlclient-dev && \
+RUN apt-get update && apt-get install -y \
+        wget ca-certificates && \
+    wget -O /tmp/libmysqlclient21.deb               https://repo.mysql.com/apt/ubuntu/pool/mysql-8.0/m/mysql-community/libmysqlclient21_8.0.33-1ubuntu22.04_amd64.deb && \
+    wget -O /tmp/libmysqlclient-dev.deb             https://repo.mysql.com/apt/ubuntu/pool/mysql-8.0/m/mysql-community/libmysqlclient-dev_8.0.33-1ubuntu22.04_amd64.deb && \
+    wget -O /tmp/mysql-common.deb                   https://repo.mysql.com/apt/ubuntu/pool/mysql-8.0/m/mysql-community/mysql-common_8.0.33-1ubuntu22.04_amd64.deb && \
+    wget -O /tmp/mysql-community-client-plugins.deb https://repo.mysql.com/apt/ubuntu/pool/mysql-8.0/m/mysql-community/mysql-community-client-plugins_8.0.33-1ubuntu22.04_amd64.deb && \
+    apt-get install -y /tmp/*.deb && \
+    rm -f /tmp/*.deb && \
     rm -rf /var/lib/apt/lists/*
 
 #
@@ -35,4 +34,4 @@ LABEL org.label-schema.schema-version="1.0" \
       org.opencontainers.image.source="https://github.com/florinbuzec/mysql-src-h" \
       org.opencontainers.image.url="https://github.com/florinbuzec/mysql-src-h" \
       org.opencontainers.image.version="mysql-8.0" \
-      org.opencontainers.image.created="2025-11-17"
+      org.opencontainers.image.created="2025-11-18"
