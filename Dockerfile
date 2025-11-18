@@ -11,14 +11,15 @@ RUN apt-get -y update && \
     rm -rf /var/lib/apt/lists/*
 
 # updated with officials
-RUN wget https://downloads.mysql.com/archives/get/p/23/file/libmysqlclient20_5.7.25-1debian8_amd64.deb && \
-    wget https://downloads.mysql.com/archives/get/p/23/file/libmysqlclient20-dbgsym_5.7.25-1debian8_amd64.deb && \
-    wget https://downloads.mysql.com/archives/get/p/23/file/mysql-common_5.7.25-1debian8_amd64.deb && \
-    wget https://downloads.mysql.com/archives/get/p/23/file/libmysqlclient-dev_5.7.25-1debian8_amd64.deb && \
-    dpkg -i mysql-common_5.7.25-1debian8_amd64.deb && \
-    dpkg -i libmysqlclient20_5.7.25-1debian8_amd64.deb && \
-    dpkg -i libmysqlclient20-dbgsym_5.7.25-1debian8_amd64.deb && \
-    dpkg -i libmysqlclient-dev_5.7.25-1debian8_amd64.deb
+RUN wget -O /tmp/libmysqlclient.deb          https://downloads.mysql.com/archives/get/p/23/file/libmysqlclient20_5.7.25-1debian8_amd64.deb && \
+    wget -O /tmp/libmysqlclient20-dbgsym.deb https://downloads.mysql.com/archives/get/p/23/file/libmysqlclient20-dbgsym_5.7.25-1debian8_amd64.deb && \
+    wget -O /tmp/mysql-common.deb            https://downloads.mysql.com/archives/get/p/23/file/mysql-common_5.7.25-1debian8_amd64.deb && \
+    wget -O /tmp/libmysqlclient-dev.deb      https://downloads.mysql.com/archives/get/p/23/file/libmysqlclient-dev_5.7.25-1debian8_amd64.deb && \
+    dpkg -i /tmp/mysql-common.deb && \
+    dpkg -i /tmp/libmysqlclient.deb && \
+    dpkg -i /tmp/libmysqlclient20-dbgsym.deb && \
+    dpkg -i /tmp/libmysqlclient-dev.deb && \
+    rm -f /tmp/*.deb
 
 #
 
@@ -41,4 +42,4 @@ LABEL org.label-schema.schema-version="1.0" \
       org.opencontainers.image.source="https://github.com/florinbuzec/mysql-src-h" \
       org.opencontainers.image.url="https://github.com/florinbuzec/mysql-src-h" \
       org.opencontainers.image.version="mysql-5.7" \
-      org.opencontainers.image.created="2025-11-17"
+      org.opencontainers.image.created="2025-11-18"
